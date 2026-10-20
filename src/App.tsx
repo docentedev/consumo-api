@@ -1,43 +1,22 @@
-import { useAuth } from "react-oidc-context";
-import ShowPeople from "./components/show-people/ShowPeople";
-import "./App.css";
+import { Route, Switch } from "wouter";
+import { DashboardLayout } from "./components/layout/DashboardLayout";
+import { OverviewPage } from "./pages/OverviewPage";
+import { AnalyticsPage } from "./pages/AnalyticsPage";
+import { UsersPage } from "./pages/UsersPage";
+import { SettingsPage } from "./pages/SettingsPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 function App() {
-  const auth = useAuth();
-  const signOutRedirect = () => {
-    const clientId = "67m91k5qpictmcapqke2odqscl";
-    const logoutUri = "https://consumo-api-nine.vercel.app/";
-    const cognitoDomain =
-      "https://us-east-2andi92maj.auth.us-east-2.amazoncognito.com";
-    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
-  };
-  if (auth.isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (auth.error) {
-    return <div>Encountering error... {auth.error.message}</div>;
-  }
-
-  if (auth.isAuthenticated) {
-    return (
-      <div>
-        <pre> Hello: {auth.user?.profile.email} </pre>
-        <pre> ID Token: {auth.user?.id_token} </pre>
-        <pre> Access Token: {auth.user?.access_token} </pre>
-        <pre> Refresh Token: {auth.user?.refresh_token} </pre>
-
-        <button onClick={() => auth.removeUser()}>Sign out</button>
-        <ShowPeople />
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <button onClick={() => auth.signinRedirect()}>Sign in</button>
-      <button onClick={() => signOutRedirect()}>Sign out</button>
-    </div>
+    <DashboardLayout>
+      <Switch>
+        <Route path="/" component={OverviewPage} />
+        <Route path="/analytics" component={AnalyticsPage} />
+        <Route path="/users" component={UsersPage} />
+        <Route path="/settings" component={SettingsPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </DashboardLayout>
   );
 }
 

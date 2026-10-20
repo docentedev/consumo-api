@@ -1,10 +1,39 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>consumo-api</title>
+    <meta name="theme-color" content="#0f172a" />
+    <meta
+      name="description"
+      content="Nexo Analytics Suite · Panel de control para métricas de producto, usuarios y conversión."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Nexo · Panel de control</title>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("nexo-dashboard-theme") || "system";
+          var dark =
+            stored === "dark" ||
+            (stored === "system" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.classList.toggle("dark", dark);
+          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+          if (localStorage.getItem("nexo-reduce-motion") === "true") {
+            document.documentElement.classList.add("reduce-motion");
+          }
+        } catch (error) {
+          /* Sin preferencias guardadas */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
