@@ -6,7 +6,7 @@ function App() {
   const auth = useAuth();
   const signOutRedirect = () => {
     const clientId = "67m91k5qpictmcapqke2odqscl";
-    const logoutUri = "<logout uri>";
+    const logoutUri = "https://consumo-api-nine.vercel.app/";
     const cognitoDomain =
       "https://us-east-2andi92maj.auth.us-east-2.amazoncognito.com";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
